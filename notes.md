@@ -10,7 +10,7 @@ Frontend:
 
 <img width="218" height="90" alt="image" src="https://github.com/user-attachments/assets/b7f49aa9-37e0-462d-aa82-c1c13058002a" />
 
-2- Docs and trying functions from the UI:
+## Docs and trying functions from the UI:
 
 http://localhost:8000/redoc 
 
@@ -19,10 +19,17 @@ http://localhost:8000/redoc
 or
 
 http://localhost:8000/docs
+
 <img width="477" height="518" alt="image" src="https://github.com/user-attachments/assets/651670d5-b6e1-4635-9c91-bc773b0f3d85" />
 
 
 or
 
 http://localhost:8000/<fxn name>
+
+### GET functions
+
+First is a generic GET to grab all the posts, just given a path. Second is a more granular one to get a *specific* post using the path parameter id.
+
+<img width="473" height="350" alt="image" src="https://github.com/user-attachments/assets/d1d11cac-cd96-4bb7-a10d-8b4d74e530eb" />
 
