@@ -1,5 +1,5 @@
 from fastapi import FastAPI, HTTPException
-from app.schemas import PostCreate
+from app.schemas import PostCreate, PostResponse
 
 app = FastAPI()
 
@@ -35,15 +35,19 @@ def get_all_posts(limit: int = None):
     return text_posts
 
 # Our READ endpoint to get a single text post by id using its path parameter
+# added error handling to return a 404 status code if the post with the specified id is not found in our text_posts dictionary
+# the response model (PostResponse) ensures that the returned data is structured according to the defined schema, providing consistency in our API responses
 @app.get("/posts/{id}")
-def get_post(id: str):
+def get_post(id: str) -> PostResponse:
     if id not in text_posts:
         raise HTTPException(status_code=404, detail="Post not found")
     return text_posts.get(id)
 
-@app.post("/posts") 
+@app.post("/posts")
 # receiving the request body as a pydantic model (PostCreate) which will validate the incoming data
-def create_post(post: PostCreate):
+# returning the created post as a PostResponse model which will ensure the response data is structured correctly
+def create_post(post: PostCreate) -> PostResponse:
     new_post = {"title": post.title, "content": post.content}
     text_posts[max(text_posts.keys()) + 1] = new_post
     return new_post
+
