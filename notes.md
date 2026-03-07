@@ -33,3 +33,14 @@ First is a generic GET to grab all the posts, just given a path. Second is a mor
 
 <img width="473" height="350" alt="image" src="https://github.com/user-attachments/assets/d1d11cac-cd96-4bb7-a10d-8b4d74e530eb" />
 
+Added exception handling to GET functions using the HTTPException library:
+
+UI:
+
+<img width="458" height="465" alt="image" src="https://github.com/user-attachments/assets/e8d4da24-3a2a-4c95-9b53-a0123cfc258a" />
+
+Logs:
+
+<img width="506" height="156" alt="image" src="https://github.com/user-attachments/assets/1b2036ac-5164-4f5f-a506-3c6c94082067" />
+
+
