@@ -12,6 +12,7 @@ app = FastAPI()
 #     return {"message": "Hello World"}
 
 # container dict for our text posts
+# each post has a unique id (int: key) and a dictionary of title and content (strings: value)
 text_posts = {
     1: {"title": "New Post", "content": "Cool test post"},
     2: {"title": "Python Tip", "content": "Use list comprehensions for cleaner loops."},
