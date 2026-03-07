@@ -64,7 +64,15 @@ or
 
 http://localhost:8000/<fxn name>
 
-### GET functions
+### Dummy functions
+
+Generic Post upload function, and Get feed function.
+
+<img width="467" height="368" alt="image" src="https://github.com/user-attachments/assets/1dc97e96-70d4-42f3-b456-747c6c729eef" />
+
+
+
+### GET functions (moved to old_app.py)
 
 First is a generic GET to grab all the posts, just given a path. Second is a more granular one to get a *specific* post using the path parameter id.
 
