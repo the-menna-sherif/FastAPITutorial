@@ -1,7 +1,7 @@
 from collections.abc import AsyncGenerator
 from datetime import datetime, timezone
 import uuid 
-
+from fastapi import Depends
 from sqlalchemy import create_engine
 from sqlalchemy import Column, String, DateTime, ForeignKey, Text
 from sqlalchemy.dialects.postgresql import UUID
@@ -9,7 +9,6 @@ from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker ,create_asyn
 from sqlalchemy.orm import DeclarativeBase, relationship
 from sqlalchemy import UUID
 from fastapi_users.db import SQLAlchemyUserDatabase, SQLAlchemyBaseUserTableUUID
-
 
 # allow to connect to local db file in current directory
 ## can connect to another db by changing the DATABASE_URL to the appropriate connection string for that database (e.g., PostgreSQL, MySQL, etc.)
@@ -52,3 +51,7 @@ async def create_db_and_tables():
 async def get_async_session() -> AsyncGenerator[AsyncSession, None]:
     async with async_session_maker() as session:
         yield session
+
+# get user db table
+async def get_user_db(session: AsyncSession = Depends(get_async_session)):
+    yield SQLAlchemyUserDatabase(session, User)
