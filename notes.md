@@ -10,6 +10,20 @@ Frontend:
 
 <img width="218" height="90" alt="image" src="https://github.com/user-attachments/assets/b7f49aa9-37e0-462d-aa82-c1c13058002a" />
 
+2- Line: text_posts[max(text_posts.keys()) + 1] = new_post
+
+Error:
+
+text_posts[max(text_posts.keys()) + 1] = new_post
+               ~~~~~~~~~~~~~~~~~~~~~~~^~~
+TypeError: can only concatenate str (not "int") to str
+
+WA code:
+new_id = int(max(text_posts.keys())) + 1
+text_posts[str(new_id)] = new_post
+
+Resolution: treating dict keys like an auto-incrementing database ID, but py dicts don't have that feature built-in. Realized having my dict keys as strings is stupid, changed the text_posts dict keys to ints and reverted code.
+
 ## Docs and trying functions from the UI:
 
 http://localhost:8000/redoc 
