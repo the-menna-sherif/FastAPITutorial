@@ -1,28 +1,33 @@
 from collections.abc import AsyncGenerator
-from datetime import datetime, utcnow
+from datetime import datetime, timezone
 import uuid 
 
 from sqlalchemy import create_engine
-from sqlalchemy import Column, String, DateTime, ForeignKey, Text, as_uuid
+from sqlalchemy import Column, String, DateTime, ForeignKey, Text
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker ,create_async_engine
 from sqlalchemy.orm import DeclarativeBase, relationship
+from sqlalchemy import UUID
 
 # allow to connect to local db file in current directory
 ## can connect to another db by changing the DATABASE_URL to the appropriate connection string for that database (e.g., PostgreSQL, MySQL, etc.)
 DATABASE_URL = "sqlite+aiosqlite:///./test.db"
 
+# Declarative base class for our data models, all models will inherit from this base class
+class Base(DeclarativeBase):
+    pass
+
 # data model definition using SQLAlchemy's declarative base
 # data model is a class that represents a table in the database, 
 # with attributes corresponding to columns in the table
-class Post(DeclarativeBase):
+class Post(Base):
     __tablename__ = "posts"
 
-    id = Column(UUID(as_uuid==True), primary_key=True, default=uuid.uuid4) # primary key & unique identifier for each post, automatically generated using uuid4
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4) # primary key & unique identifier for each post, automatically generated using uuid4
     caption = Column(Text)
     url = Column(String, nullable=False) # cannot be null
     file_type = Column(String, nullable=False) # cannot be null
-    created_at = Column(DateTime, default=datetime.utcnow) # default value is current time of post creation
+    created_at = Column(DateTime, default=datetime.now(timezone.utc)) # default value is current time of post creation
 
 
 
@@ -33,7 +38,7 @@ async_session_maker = async_sessionmaker(engine, expire_on_commit=False) # expir
 async def create_db_and_tables():
     async with engine.begin() as conn:
         # creates the tables in the database based on the defined data models (in this case, the Post model)
-        await conn.run_sync(DeclarativeBase.metadata.create_all) 
+        await conn.run_sync(Base.metadata.create_all) 
     
 async def get_async_session() -> AsyncGenerator[AsyncSession, None]:
     async with async_session_maker() as session:
