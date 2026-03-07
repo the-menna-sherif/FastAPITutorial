@@ -27,6 +27,7 @@ class Post(Base):
     caption = Column(Text)
     url = Column(String, nullable=False) # cannot be null
     file_type = Column(String, nullable=False) # cannot be null
+    # file_name = Column(String, nullable=False) # cannot be null
     created_at = Column(DateTime, default=datetime.now(timezone.utc)) # default value is current time of post creation
 
 
