@@ -1,3 +1,11 @@
+# Finished UI
+(NOT doing streamlit part)
+
+<img width="458" height="173" alt="image" src="https://github.com/user-attachments/assets/b3624c9d-8599-49e3-a848-1a62bcba07e2" />
+
+<img width="781" height="432" alt="image" src="https://github.com/user-attachments/assets/c9c090ff-8a59-4017-9940-3c62bb158c74" />
+
+
 # Error tracking & debugging notes:
 
 1- This site can't be reached when opening the URL on browser:
