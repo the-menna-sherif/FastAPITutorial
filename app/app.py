@@ -1,6 +1,6 @@
 from fastapi import FastAPI, HTTPException, File, UploadFile, Form, Depends
 
-from app.schemas import PostCreate, PostResponse
+from app.schemas import PostCreate, PostResponse, UserCreate, UserRead, UserUpdate
 from app.db import Post, create_db_and_tables, get_async_session
 
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -14,6 +14,8 @@ import os
 import uuid
 import tempfile
 
+from app.users import auth_backend, fastapi_users, current_active_user
+
 # Initialize database -> verify: seeing test.db and acts: creates missing tables
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -22,6 +24,27 @@ async def lifespan(app: FastAPI):
 
 # app = FastAPI()  # FastAPI instance without a lifespan function, isn't connected to the database setup, so no fxns in db will execute (creation, etc.)
 app = FastAPI(lifespan=lifespan) # FastAPI instance with a lifespan function that creates the database and tables before the app starts
+
+app.include_router(
+    fastapi_users.get_auth_router(auth_backend), # include the authentication router from FastAPI Users, which provides endpoints for user authentication (e.g., login, logout)
+    prefix="/auth/jwt", # go to /auth/jwt to access the auth endpoints (e.g., /auth/jwt/login for login)
+    tags=["auth"] # tag the auth endpoints with "auth" for documentation purposes
+)
+
+app.include_router(
+    fastapi_users.get_register_router(UserRead, UserCreate), # include the registration router from FastAPI Users, which provides endpoints for user registration (e.g., /auth/register)
+    prefix="/auth", tags=["auth"])
+
+app.include_router(
+    fastapi_users.get_reset_password_router(), 
+    prefix="/auth", tags=["auth"])
+
+app.include_router(
+    fastapi_users.get_verify_router(UserRead), 
+    prefix="/auth", tags=["auth"])
+
+app.include_router(
+    fastapi_users.get_users_router(UserRead, UserUpdate), prefix="/users", tags=["users"])
 
 # Create a new post endpoint
 @app.post("/upload")
