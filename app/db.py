@@ -8,6 +8,8 @@ from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker ,create_async_engine
 from sqlalchemy.orm import DeclarativeBase, relationship
 from sqlalchemy import UUID
+from fastapi_users.db import SQLAlchemyUserDatabase, SQLAlchemyBaseUserTableUUID
+
 
 # allow to connect to local db file in current directory
 ## can connect to another db by changing the DATABASE_URL to the appropriate connection string for that database (e.g., PostgreSQL, MySQL, etc.)
@@ -17,6 +19,11 @@ DATABASE_URL = "sqlite+aiosqlite:///./test.db"
 class Base(DeclarativeBase):
     pass
 
+class User(Base, SQLAlchemyBaseUserTableUUID):
+    # create bidrxnal relationship btwn user and post (axs either from other)
+    posts = relationship("Post", back_populates="user") 
+
+
 # data model definition using SQLAlchemy's declarative base
 # data model is a class that represents a table in the database, 
 # with attributes corresponding to columns in the table
@@ -24,6 +31,7 @@ class Post(Base):
     __tablename__ = "posts"
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4) # primary key & unique identifier for each post, automatically generated using uuid4
+    
     caption = Column(Text)
     url = Column(String, nullable=False) # cannot be null
     file_type = Column(String, nullable=False) # cannot be null
