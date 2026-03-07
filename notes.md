@@ -20,6 +20,14 @@ or
 
 http://localhost:8000/docs
 
+```
+# create a test endpoint/ resource: GET (flow: declarator > fxn) 
+@app.get("/hello-world")
+def hello_world():
+    # return any data in either a dictionary (below) or a pydantic object
+    return {"message": "Hello World"}
+```
+
 <img width="477" height="518" alt="image" src="https://github.com/user-attachments/assets/651670d5-b6e1-4635-9c91-bc773b0f3d85" />
 
 

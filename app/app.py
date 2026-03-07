@@ -3,14 +3,6 @@ from app.schemas import PostCreate, PostResponse
 
 app = FastAPI()
 
-# Create endpoint & method
-
-# # create a   for the endpoint 
-# @app.get("/hello-world")
-# def hello_world():
-#     # return any data in either a dictionary (below) or a pydantic object
-#     return {"message": "Hello World"}
-
 # container dict for our text posts
 # each post has a unique id (int: key) and a dictionary of title and content (strings: value)
 text_posts = {
