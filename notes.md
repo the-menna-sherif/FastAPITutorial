@@ -10,6 +10,35 @@ Frontend:
 
 <img width="218" height="90" alt="image" src="https://github.com/user-attachments/assets/b7f49aa9-37e0-462d-aa82-c1c13058002a" />
 
+2- Error: module datetime contains a class also named datetime
+```
+  File "C:\Users\msherif\PycharmProjects\FastAPITutorial\app\db.py", line 2, in <module>
+
+    from datetime import datetime, utcnow
+
+ImportError: cannot import name 'utcnow' from 'datetime' (C:\Users\msherif\AppData\Local\Programs\Python\Python313\Lib\datetime.py) 
+```
+
+Fix: 
+
+```
+from datetime import datetime, timezone
+now = datetime.now(timezone.utc)
+```
+
+3- DeclarativeBase cannot be used as a base class, just a template. New way for 2.0 version on SQLAlchemy.
+Error:
+
+```
+sqlalchemy.exc.InvalidRequestError: Cannot use 'DeclarativeBase' directly as a declarative base class. Create a Base by creating a subclass of it.
+```
+
+Fix: create a class inheriting from DeclarativeBase and no code, inherit all from it. Later classes and models should inherit from it.
+```
+class Base(DeclarativeBase):
+    pass
+```
+
 ## Docs and trying functions from the UI:
 
 http://localhost:8000/redoc 
