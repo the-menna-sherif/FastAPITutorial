@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException, File, UploadFile, Form, Depends
 
 from app.schemas import PostCreate, PostResponse, UserCreate, UserRead, UserUpdate
-from app.db import Post, create_db_and_tables, get_async_session
+from app.db import Post, create_db_and_tables, get_async_session, User
 
 from sqlalchemy.ext.asyncio import AsyncSession
 from contextlib import asynccontextmanager
@@ -51,6 +51,7 @@ app.include_router(
 async def upload_file(
     file: UploadFile = File(...),
     caption: str = Form(""),
+    user: User = Depends(current_active_user), # dependency injection to get the current active user, ensures that only authenticated users can create posts
     session: AsyncSession = Depends(get_async_session)
 ):
     temp_file_path = None
@@ -80,6 +81,7 @@ async def upload_file(
 
         # create post instance
         post = Post(
+            user_id=user.id,
             caption=caption,
             url=upload_result.url,
             file_type="video" if file.content_type.startswith("video/") else "image",
@@ -123,11 +125,14 @@ async def get_feed(
         post_data.append(
             {
                 "id": str(post.id), # convert UUID to string 
+                "user_id": str(post.user_id), # convert UUID to string
                 "caption": post.caption,
                 "url": post.url,
                 "file_type": post.file_type,
                 "file_name": post.file_name,
                 "created_at": post.created_at.isoformat()
+                "is_owner": post.user_id == str(current_active_user.id) # check if the current user is the owner of the post, return True or False
+                "email": post.user.email # include the email of the user who created the post, can be used to display the username or other info in the frontend
             }
         )
     return {"posts": post_data}
@@ -146,6 +151,10 @@ async def delete_post(
 
         if not post:
             raise HTTPException(status_code=404, detail="Post not found") # if post not found, raise a 404 error
+        
+        if post.user_id != user.id:
+            raise HTTPException(status_code=403, detail="Not authorized to delete this post") # if the user is not the owner of the post, raise a 403 error
+
         await session.delete(post) # delete the post from the database
         await session.commit() # commit the transaction to save the changes in the database
         return {"success": True} # return a success message in the response
