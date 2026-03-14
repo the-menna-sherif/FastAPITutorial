@@ -32,8 +32,10 @@ def example1(): # fxn called when /example endpoint gets called by GET request
 @limiter.limit("1/second") # apply rate limit to this endpoint
 async def example2( # rate limiter mw fxn
    request: Request, 
-   call_next, # takes request and passes to correct path operation, returning reponse
+#    call_next, # takes request and passes to correct path operation, returning reponse
 ):
-    response = await call_next(request)
+    response = {
+        "message": "You've reached example2, and haven't been rate limited!"
+    }
     return response
 
