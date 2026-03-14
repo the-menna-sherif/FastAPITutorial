@@ -130,8 +130,8 @@ async def get_feed(
                 "url": post.url,
                 "file_type": post.file_type,
                 "file_name": post.file_name,
-                "created_at": post.created_at.isoformat()
-                "is_owner": post.user_id == str(current_active_user.id) # check if the current user is the owner of the post, return True or False
+                "created_at": post.created_at.isoformat(),
+                "is_owner": post.user_id == str(current_active_user.id), # check if the current user is the owner of the post, return True or False
                 "email": post.user.email # include the email of the user who created the post, can be used to display the username or other info in the frontend
             }
         )
