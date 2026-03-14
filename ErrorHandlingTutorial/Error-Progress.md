@@ -10,6 +10,11 @@ python -m pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
+2. Create a basic API gateway:
+
+3. 
+4. 
+
 # Error documentation
 
 1. Command (PS terminal):
