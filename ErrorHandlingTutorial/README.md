@@ -6,4 +6,7 @@ In this notebook, I'll be API error handling. This will be done in phases:
 2. Specific exception handling
 3. Guardrails (?) 
 
-I will first create a **simple API gateway** to build upon. 
+Created a simple API gateway, tried using middleware, but found using the slowapi lib much easier. 
+
+# Status
+Completed.
