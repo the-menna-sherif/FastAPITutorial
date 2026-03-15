@@ -81,11 +81,13 @@ Creating the basic gateway:
 https://www.geeksforgeeks.org/python/creating-first-rest-api-with-fastapi/
 
 Rate Limiting using slowapi:
+
 https://github.com/laurentS/slowapi
 
 https://www.youtube.com/watch?v=cGzz0zoyUO0
 
 https://slowapi.readthedocs.io/en/stable/#fastapi
+
 
 https://www.compilenrun.com/docs/framework/fastapi/fastapi-security/fastapi-rate-limiting/
 
@@ -94,3 +96,13 @@ https://fastapi.tiangolo.com/tutorial/handling-errors/?h=handling
 
 Cool logic diagram:
 https://thedkpatel.medium.com/rate-limiting-with-fastapi-an-in-depth-guide-c4d64a776b83
+
+Handling PII with REGEX:
+
+https://www.w3schools.com/python/python_regex.asp
+
+https://www.geeksforgeeks.org/python/send-parameters-to-post-request-fastapi/
+
+https://fastapi.tiangolo.com/tutorial/body/#import-pydantics-basemodel
+
+https://docs.python.org/3/library/re.html#re.compile
