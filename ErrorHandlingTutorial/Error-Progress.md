@@ -82,7 +82,12 @@ https://www.geeksforgeeks.org/python/creating-first-rest-api-with-fastapi/
 
 Rate Limiting using slowapi:
 https://github.com/laurentS/slowapi
+
+https://www.youtube.com/watch?v=cGzz0zoyUO0
+
 https://slowapi.readthedocs.io/en/stable/#fastapi
+
+https://www.compilenrun.com/docs/framework/fastapi/fastapi-security/fastapi-rate-limiting/
 
 Error handling:
 https://fastapi.tiangolo.com/tutorial/handling-errors/?h=handling
